@@ -1,24 +1,20 @@
 <script>
 	import SearchBar from '$lib/SearchBar.svelte';
 	import ItemList from '$lib/ItemList.svelte';
+	import D2Data from '../data/items';
+
+	let items = D2Data.map((a) => ({ ...a }));
+
+	let searchValue = '';
+
+	const filterFn = (v) => {
+		items = D2Data.map((a) => ({ ...a }));
+		items = items.filter((i) => i.name.toLowerCase().includes(v.toLowerCase()));
+	};
+
+	$: filterFn(searchValue);
 </script>
 
-<!--
-  This example requires Tailwind CSS v2.0+ 
-  
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
 <!-- Background color split screen for large screens -->
 <div class="fixed top-0 left-0 w-1/2 h-full bg-white" aria-hidden="true" />
 <div class="fixed top-0 right-0 w-1/2 h-full bg-gray-50" aria-hidden="true" />
@@ -98,7 +94,7 @@
 			>
 				<div class="h-full pl-4 pr-6 py-6 sm:pl-6 lg:pl-8 xl:pl-0">
 					<!-- Start left column area -->
-					<SearchBar />
+					<SearchBar bind:value={searchValue} />
 					<!-- End left column area -->
 				</div>
 			</div>
@@ -106,7 +102,7 @@
 			<div class="bg-white lg:min-w-0 lg:flex-1">
 				<div class="h-full py-6 px-4 sm:px-6 lg:px-8">
 					<!-- Start main area-->
-					<ItemList />
+					<ItemList data={items} />
 					<!-- End main area -->
 				</div>
 			</div>

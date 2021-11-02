@@ -1,4 +1,5 @@
 <script>
+	export let value = '';
 </script>
 
 <div class="w-full">
@@ -23,6 +24,7 @@
 		<input
 			id="search"
 			name="search"
+			bind:value
 			class="block w-full pl-10 pr-3 py-2 border border-transparent rounded-md leading-5 bg-gray-400 bg-opacity-25 text-gray-700 placeholder-gray-600 focus:outline-none focus:bg-gray-200 focus:ring-0 focus:placeholder-gray-400 focus:text-gray-900 sm:text-sm"
 			placeholder="Search items"
 			type="search"

@@ -1,12 +1,13 @@
 <script>
 	import Item from './Item.svelte';
-	import ItemData from '../data/items';
+
+	export let data = [];
 </script>
 
 <div class="bg-white shadow overflow-hidden sm:rounded-md">
 	<ul role="list" class="divide-y divide-gray-200">
-		{#each ItemData as AnItem}
-			<Item item={AnItem} />
+		{#each data as item}
+			<Item {item} />
 		{/each}
 	</ul>
 </div>
