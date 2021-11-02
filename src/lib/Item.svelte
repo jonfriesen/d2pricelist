@@ -1,52 +1,10 @@
 <script>
-	export const item = {
-		name: 'Crown of Thieves',
-		rarity: 'Unique',
-		type: 'head',
-		sub_type: 'Grand Crown',
-		value: {
-			resurrected: {
-				high: 'Lem',
-				low: 'Lem'
-			},
-			classic: {
-				high: 'Lem',
-				low: 'Lem'
-			}
-		},
-		desired: [
-			{
-				traits: ['Ethereal'],
-				value: {
-					resurrected: {
-						high: 'Pul',
-						low: 'Lum'
-					},
-					classic: {
-						high: 'Pul',
-						low: 'Lum'
-					}
-				}
-			},
-			{
-				traits: ['Ethereal', '11-13% LL', '190+ ED'],
-				value: {
-					resurrected: {
-						high: '2-3 Ist',
-						low: '2-3 Ist'
-					},
-					classic: {
-						high: '2-3 Ist',
-						low: '2-3 Ist'
-					}
-				}
-			}
-		]
-	};
+	export let item = {};
 
 	const getRarityColor = (rarity) => {
 		switch (rarity.toLowerCase()) {
 			case 'unique':
+			case 'runeword':
 				return 'text-yellow-400';
 			case 'set':
 				return 'text-green-500';
@@ -135,7 +93,24 @@
 								item.rarity
 							)}"
 						>
-							<span>{getValueString(item.value.classic)}</span>
+							{#if !item.value.classic.unknown}
+								<span class="text-yellow-400">{getValueString(item.value.classic)}</span>
+							{:else}
+								<span>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-5 w-5 text-gray-300"
+										viewBox="0 0 20 20"
+										fill="currentColor"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</span>
+							{/if}
 						</div>
 					</td>
 					<td>
@@ -145,7 +120,24 @@
 									item.rarity
 								)}"
 							>
-								<span class="text-green-400">{getValueString(item.value.resurrected)}</span>
+								{#if !item.value.resurrected.unknown}
+									<span class="text-green-400">{getValueString(item.value.resurrected)}</span>
+								{:else}
+									<span>
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											class="h-5 w-5 text-gray-300"
+											viewBox="0 0 20 20"
+											fill="currentColor"
+										>
+											<path
+												fill-rule="evenodd"
+												d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+												clip-rule="evenodd"
+											/>
+										</svg>
+									</span>
+								{/if}
 							</div>
 						</div>
 					</td>
@@ -161,22 +153,62 @@
 			<table class="min-w-full md:table-fixed">
 				<tbody>
 					{#each item.desired as desired, i}
-						<tr class:bg-white="{i & 2 == 0}" class:bg-gray-50="{i & 2 != 0}">
+						<tr class:bg-white={i & (2 == 0)} class:bg-gray-50={i & (2 != 0)}>
 							<td class="md:w-1/2 text-sm leading-5 font-medium text-gray-500">
 								<div class="ml-4 flex flex-col md:flex-row">
 									{#each desired.traits as trait, x}
-										<span>{trait}{#if x != desired.traits.length - 1},&nbsp;{/if}</span>
+										<span
+											>{trait}{#if x != desired.traits.length - 1},&nbsp;{/if}</span
+										>
 									{/each}
 								</div>
 							</td>
-							<td class="md:w-1/4 text-sm leading-5 font-medium text-gray-500 whitespace-nowrap align-top">
+							<td
+								class="md:w-1/4 text-sm leading-5 font-medium text-gray-500 whitespace-nowrap align-top"
+							>
 								<div class="flex justify-end">
-									<span class="text-yellow-400">{getValueString(desired.value.classic)}</span>
+									{#if !desired.value.classic.unknown}
+										<span class="text-yellow-400">{getValueString(desired.value.classic)}</span>
+									{:else}
+										<span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5 text-gray-300"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+											>
+												<path
+													fill-rule="evenodd"
+													d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										</span>
+									{/if}
 								</div>
 							</td>
-							<td class="md:w-1/4 text-sm leading-5 font-medium text-gray-500 whitespace-nowrap align-top">
+							<td
+								class="md:w-1/4 text-sm leading-5 font-medium text-gray-500 whitespace-nowrap align-top"
+							>
 								<div class="flex justify-end ">
-									<span class="text-green-400">{getValueString(desired.value.resurrected)}</span>
+									{#if !desired.value.resurrected.unknown}
+										<span class="text-green-400">{getValueString(desired.value.resurrected)}</span>
+									{:else}
+										<span>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												class="h-5 w-5 text-gray-300"
+												viewBox="0 0 20 20"
+												fill="currentColor"
+											>
+												<path
+													fill-rule="evenodd"
+													d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+													clip-rule="evenodd"
+												/>
+											</svg>
+										</span>
+									{/if}
 								</div>
 							</td>
 						</tr>
